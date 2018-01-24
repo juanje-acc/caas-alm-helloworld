@@ -9,8 +9,9 @@ node {
     stage('Build image') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
-
-        app = docker.build("caixabank-caas/helloworld")
+        docker.withRegistry('https://sandbox.docker.caixabank.com', 'sandbox-registry') {
+            app = docker.build("caixabank-caas/helloworld")
+        }
     }
 
     stage('Test image') {
