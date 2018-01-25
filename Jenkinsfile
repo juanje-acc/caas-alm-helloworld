@@ -9,9 +9,9 @@ node {
     stage('Build image') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
-        docker.withRegistry('https://sandbox.docker.caixabank.com', 'sandbox-registry') {
+          docker.withRegistry('https://sandbox.docker.caixabank.com', 'sandbox-registry') {
             app = docker.build("caixabank-caas/helloworld")
-        }
+            }
     }
 
     stage('Test image') {
@@ -28,7 +28,7 @@ node {
          * First, the incremental build number from Jenkins
          * Second, the 'latest' tag.
          * Pushing multiple tags is cheap, as all the layers are reused. */
-        docker.withRegistry('https://sandbox.docker.caixabank.com', 'sandbox-registry') {
+        docker.withRegistry('https://sandbox.docker.caixabank.com:8443', 'sandbox-registry') {
             app.push("${env.BUILD_NUMBER}")
             app.push("latest")
         }
